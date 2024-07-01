@@ -13,7 +13,7 @@ export const loader = async ({ params }) => {
   const todoId = params.todoId;
   try {
     const todo = await prisma.todo.findUnique({
-      where: { id: todoId }
+      where: { id: todoId },
     });
 
     if (!todo) {

@@ -14,15 +14,16 @@ export default function Index() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-4xl font-bold">Home Page of Remix Todo!</h1>
-      <button
-        type="submit"
-        className="bg-yellow-500 text-dark px-2 py-1 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-        onClick={seeTodos}
-      >
-        See my Todos
-      </button>
+    <div className="flex flex-col">
+      <div className="container mx-auto p-4 text-center">
+        <h2 className="text-xl font-semibold mb-4">Home Page for my Todos</h2>
+        <button
+          onClick={seeTodos}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-2"
+        >
+          See my Todos
+        </button>
+      </div>
     </div>
   );
 }

@@ -56,7 +56,14 @@ export default function CreateTodo() {
           disabled={isSubmitting} // Disable the button while submitting
         >
           {isSubmitting ? (
-            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>{" "}
+              <span className="ml-1">Submitting...</span>
+            </>
           ) : (
             "Add Todo"
           )}
