@@ -1,5 +1,5 @@
 import { json, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client"; // Import PrismaClient
 import React, { useState } from "react";
 
@@ -35,6 +35,14 @@ export default function CreateTodo() {
   const handleSubmit = async (event) => {
     setIsSubmitting(true);
   };
+
+  const navigation = useNavigation();
+  if (navigation.state != "idle")
+    return (
+      <div className="flex items-center justify-center h-screen text-xl text-blue-600">
+        Loading... Wait for a few moments
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4">

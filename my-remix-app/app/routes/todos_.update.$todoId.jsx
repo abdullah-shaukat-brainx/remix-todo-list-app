@@ -4,6 +4,7 @@ import {
   useActionData,
   useLoaderData,
   useParams,
+  useNavigation,
 } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client";
 
@@ -50,6 +51,14 @@ export default function UpdateTodo() {
   const { todo } = useLoaderData(); // Fetch todo data from loader
   const actionData = useActionData(); // Fetch action data from form submission
   const params = useParams(); // Fetch URL parameters
+
+  const navigation = useNavigation();
+  if (navigation.state != "idle")
+    return (
+      <div className="flex items-center justify-center h-screen text-xl text-blue-600">
+        Loading... Wait for a few moments
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4">
