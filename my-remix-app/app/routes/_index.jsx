@@ -1,4 +1,5 @@
 import { useNavigate, useNavigation } from "@remix-run/react";
+import { CircularProgress } from "@mui/material";
 export const meta = () => {
   return [
     { title: "Remix Todo App" },
@@ -16,7 +17,7 @@ export default function Index() {
   if (navigation.state != "idle")
     return (
       <div className="flex items-center justify-center h-screen text-xl text-blue-600">
-        Loading... Wait for a few moments
+        <CircularProgress />
       </div>
     );
   else

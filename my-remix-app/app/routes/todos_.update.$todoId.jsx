@@ -7,6 +7,7 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client";
+import { CircularProgress } from "@mui/material";
 
 const prisma = new PrismaClient();
 
@@ -56,7 +57,7 @@ export default function UpdateTodo() {
   if (navigation.state != "idle")
     return (
       <div className="flex items-center justify-center h-screen text-xl text-blue-600">
-        Loading... Wait for a few moments
+        <CircularProgress />
       </div>
     );
 
