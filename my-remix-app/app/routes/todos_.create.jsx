@@ -32,7 +32,7 @@ export default function CreateTodo() {
   const actionData = useActionData();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     setIsSubmitting(true);
   };
 
@@ -43,40 +43,40 @@ export default function CreateTodo() {
         Loading... Wait for a few moments
       </div>
     );
-
-  return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-semibold mb-4">Create a New Todo</h2>
-      <Form method="post" className="mb-6" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="text"
-          placeholder="Enter a new todo"
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
-          disabled={isSubmitting} // Disable the input while submitting
-        />
-        {actionData?.error && (
-          <p className="text-red-500 mb-4">{actionData.error}</p>
-        )}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          disabled={isSubmitting} // Disable the button while submitting
-        >
-          {isSubmitting ? (
-            <>
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>{" "}
-              <span className="ml-1">Submitting...</span>
-            </>
-          ) : (
-            "Add Todo"
+  else
+    return (
+      <div className="container mx-auto p-4">
+        <h2 className="text-xl font-semibold mb-4">Create a New Todo</h2>
+        <Form method="post" className="mb-6" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="text"
+            placeholder="Enter a new todo"
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            disabled={isSubmitting} // Disable the input while submitting
+          />
+          {actionData?.error && (
+            <p className="text-red-500 mb-4">{actionData.error}</p>
           )}
-        </button>
-      </Form>
-    </div>
-  );
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            disabled={isSubmitting} // Disable the button while submitting
+          >
+            {isSubmitting ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>{" "}
+                <span className="ml-1">Submitting...</span>
+              </>
+            ) : (
+              "Add Todo"
+            )}
+          </button>
+        </Form>
+      </div>
+    );
 }
