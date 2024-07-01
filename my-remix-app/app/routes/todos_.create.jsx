@@ -1,11 +1,10 @@
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { PrismaClient } from "@prisma/client"; // Import PrismaClient
+import { PrismaClient } from "@prisma/client";
 import React, { useState } from "react";
 
-const prisma = new PrismaClient(); // Instantiate PrismaClient
+const prisma = new PrismaClient();
 
-// Action to handle form submission
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const todoText = formData.get("text");
@@ -30,11 +29,6 @@ export const action = async ({ request }) => {
 
 export default function CreateTodo() {
   const actionData = useActionData();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-  };
 
   const navigation = useNavigation();
   if (navigation.state != "idle")
@@ -47,7 +41,7 @@ export default function CreateTodo() {
     return (
       <div className="container mx-auto p-4">
         <h2 className="text-xl font-semibold mb-4">Create a New Todo</h2>
-        <Form method="post" className="mb-6" onSubmit={handleSubmit}>
+        <Form method="post" className="mb-6">
           <input
             type="text"
             name="text"
