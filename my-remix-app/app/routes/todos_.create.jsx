@@ -53,7 +53,6 @@ export default function CreateTodo() {
             name="text"
             placeholder="Enter a new todo"
             className="w-full p-2 mb-4 border border-gray-300 rounded"
-            disabled={isSubmitting} // Disable the input while submitting
           />
           {actionData?.error && (
             <p className="text-red-500 mb-4">{actionData.error}</p>
@@ -61,20 +60,8 @@ export default function CreateTodo() {
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            disabled={isSubmitting} // Disable the button while submitting
           >
-            {isSubmitting ? (
-              <>
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>{" "}
-                <span className="ml-1">Submitting...</span>
-              </>
-            ) : (
-              "Add Todo"
-            )}
+            Create Todo
           </button>
         </Form>
       </div>

@@ -48,9 +48,9 @@ export const action = async ({ request, params }) => {
 };
 
 export default function UpdateTodo() {
-  const { todo } = useLoaderData(); // Fetch todo data from loader
-  const actionData = useActionData(); // Fetch action data from form submission
-  const params = useParams(); // Fetch URL parameters
+  const { todo } = useLoaderData();
+  const actionData = useActionData();
+  const params = useParams();
 
   const navigation = useNavigation();
   if (navigation.state != "idle")
@@ -69,7 +69,7 @@ export default function UpdateTodo() {
         <input
           type="text"
           name="text"
-          defaultValue={todo.text} // Populate input with todo text
+          defaultValue={todo.text}
           placeholder="Enter new text"
           className="w-full p-2 mb-4 border border-gray-300 rounded"
         />

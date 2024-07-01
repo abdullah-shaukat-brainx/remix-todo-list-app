@@ -6,15 +6,11 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client";
-// import { ClipLoader } from "react-spinners";
 
 const prisma = new PrismaClient();
-// const { state } = useNavigation();
 
 export const loader = async () => {
-  // console.log(new Date());
   const todos = await prisma.todo.findMany();
-  // console.log(new Date());
   return { todos };
 };
 
