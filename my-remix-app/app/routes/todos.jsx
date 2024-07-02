@@ -4,15 +4,41 @@ import {
   useLoaderData,
   Form,
   useNavigation,
+  redirect,
 } from "@remix-run/react";
 import { PrismaClient } from "@prisma/client";
 import { CircularProgress } from "@mui/material";
-
+import { fetchUserFromToken } from "../Utils/jwtServices";
 const prisma = new PrismaClient();
 
-export const loader = async () => {
-  const todos = await prisma.todo.findMany();
-  return { todos };
+export const loader = async ({ request }) => {
+  try {
+    const cookieHeader = request.headers.get("cookie");
+    if (!cookieHeader) {
+      throw redirect("/login");
+    }
+    const token = cookieHeader.split("access-token=")[1];
+    const decodedUser = fetchUserFromToken(token);
+    if (decodedUser.exp < new Date() / 1000) {
+      return new Response("Token expired", {
+        status: 302,
+        headers: {
+          "Set-Cookie":
+            "access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+          Location: "/login",
+        },
+      });
+    }
+    const todos = await prisma.todo.findMany({
+      where: {
+        user_id: decodedUser.userId,
+      },
+    });
+    return { todos };
+  } catch (error) {
+    console.error("Error in loader function:", error);
+    return { todos: [] };
+  }
 };
 
 export const action = async ({ request }) => {
@@ -31,9 +57,15 @@ export const action = async ({ request }) => {
 const Todos = () => {
   const { todos } = useLoaderData();
   const navigate = useNavigate();
-
   const navigation = useNavigation();
-  if (navigation.state != "idle")
+
+  const handleLogout = () => {
+    document.cookie =
+      "access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    navigate("/login");
+  };
+
+  if (navigation.state !== "idle")
     return (
       <div className="flex items-center justify-center h-screen text-xl text-blue-600">
         <CircularProgress />
@@ -41,7 +73,13 @@ const Todos = () => {
     );
   else
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center relative">
+        <button
+          onClick={handleLogout}
+          className="absolute top-4 right-4 bg-purple-500 text-white px-4 py-2 rounded shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+        >
+          Logout
+        </button>
         <div className="container mx-auto p-4 bg-white shadow-lg rounded-lg">
           <h1 className="text-3xl font-bold mb-4">Todo List</h1>
           <button
