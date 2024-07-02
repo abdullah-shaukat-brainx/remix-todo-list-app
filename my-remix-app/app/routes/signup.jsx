@@ -1,7 +1,13 @@
 // app/routes/signup.jsx
 
 import React from "react";
-import { Form, useActionData, redirect, useNavigation } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  redirect,
+  useNavigation,
+  Link,
+} from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
@@ -113,6 +119,14 @@ const Signup = () => {
               >
                 Sign up
               </button>
+            </div>
+            <div className="flex justify-center">
+              <Link
+                to="/login"
+                className="text-blue-600 hover:text-blue-800 underline font-semibold"
+              >
+                Click here if you already have an account
+              </Link>
             </div>
           </Form>
         </div>
