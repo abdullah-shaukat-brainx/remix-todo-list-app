@@ -109,7 +109,7 @@ const Todos = () => {
                     >
                       Update
                     </button>
-                    <Form method="post">
+                    <Form method="delete">
                       <input type="hidden" name="id" value={todo.id} />
                       <button
                         type="submit"

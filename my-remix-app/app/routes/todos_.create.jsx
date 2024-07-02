@@ -76,7 +76,7 @@ export default function CreateTodo() {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-xl font-semibold mb-4">Create a New Todo</h2>
-      <Form method="post" className="mb-6">
+      <Form method="put" className="mb-6">
         <input type="hidden" name="user_id" value={userId} />
         <input
           type="text"
