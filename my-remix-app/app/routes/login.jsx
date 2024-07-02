@@ -32,7 +32,13 @@ export const action = async ({ request }) => {
   }
 
   if (!isValidPasswordFormat(password)) {
-    return json({ error: "Incorrect Password Format" }, { status: 400 });
+    return json(
+      {
+        error:
+          "Incorrect Password Format, Ensure Min Length: 8, 1 Upper Case, Lower Case and Special Characters each.",
+      },
+      { status: 400 }
+    );
   }
 
   const user = await prisma.user.findUnique({
